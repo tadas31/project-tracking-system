@@ -16,7 +16,7 @@ class JWTAuth
     public function handle($request, Closure $next, $userType)
     {
         if (auth($userType)->user() == null)
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['error' => 'Unauthorized.'], 401);
 
         return $next($request);
     }

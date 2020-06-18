@@ -21,6 +21,7 @@ Route::group(['prefix' => 'admin'], function() {
 });
 
 Route::post('login', 'Auth\AuthController@loginUser');
+Route::post('signup', 'UserController@store');
 
 
 

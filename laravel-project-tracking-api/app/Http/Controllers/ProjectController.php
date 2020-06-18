@@ -23,7 +23,7 @@ class ProjectController extends Controller
         if (sizeof($project) > 0)
             return ProjectResources::collection($project);
         else 
-            return response()->json(['error' => 'No projects found'], 404);
+            return response()->json(['error' => 'No projects found.'], 404);
     }
 
     /**
@@ -45,7 +45,7 @@ class ProjectController extends Controller
         // Creates new project.
         Project::create($request->all());
 
-        return response()->json(['message' => 'Project created'], 200);
+        return response()->json(['message' => 'Project created.'], 200);
     }
 
     /**
@@ -61,7 +61,7 @@ class ProjectController extends Controller
             return new ProjectResources($project);
         }
         catch (Exception $ex) {
-            return response()->json(['error' => 'Project not found'], 404);
+            return response()->json(['error' => 'Project not found.'], 404);
         }
     }
 
@@ -87,7 +87,7 @@ class ProjectController extends Controller
         if (sizeof($projects) > 0)
             return ProjectResources::collection($projects);
         
-        return response()->json(['error' => 'No projects found'], 404);
+        return response()->json(['error' => 'No projects found.'], 404);
     }
 
     /**
@@ -100,7 +100,7 @@ class ProjectController extends Controller
         if (sizeof($projects) > 0)
             return ProjectResources::collection($projects);
 
-        return response()->json(['error' => 'No projects found'], 404);
+        return response()->json(['error' => 'No projects found.'], 404);
     }
 
     /**
@@ -134,10 +134,10 @@ class ProjectController extends Controller
             // Updates project.
             $project->update($updateData);
 
-            return response()->json(['message' => 'Project updated'], 200);
+            return response()->json(['message' => 'Project updated.'], 200);
         }
         catch (Exception $ex) {
-            return response()->json(['error' => 'Project not found'], 404);
+            return response()->json(['error' => 'Project not found.'], 404);
         }
     }
 
@@ -154,10 +154,10 @@ class ProjectController extends Controller
                 'notes' => $request->notes,
             ]);
 
-            return response()->json(['message' => 'Project notes updated'], 200);
+            return response()->json(['message' => 'Project notes updated.'], 200);
         }
         catch (Exception $ex) {
-            return response()->json(['error' => 'Project not found'], 404);
+            return response()->json(['error' => 'Project not found.'], 404);
         }
     }
 
@@ -172,10 +172,10 @@ class ProjectController extends Controller
             $project = Project::FindOrFail($id);
             $project->delete();
 
-            return response()->json(['message' => 'Project deleted'], 200);
+            return response()->json(['message' => 'Project deleted.'], 200);
         }
         catch (Exception $ex) {
-            return response()->json(['error' => 'Project not found'], 404);
+            return response()->json(['error' => 'Project not found.'], 404);
         }
     }
 

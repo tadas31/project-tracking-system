@@ -33,7 +33,7 @@ class CheckPermission
                     ->first();
 
                 if ($partOfProject == null) 
-                    return response()->json(['error' => 'Project not found'], 404);
+                    return response()->json(['error' => 'Project not found.'], 404);
 
                 $requiredPermissions = explode("|", $requiredPermissions);
                 $partOfProject = $partOfProject->whereIn('project_permissions', $requiredPermissions)
@@ -42,14 +42,14 @@ class CheckPermission
                 if ($partOfProject != null)
                     return $next($request);
 
-                return response()->json(['error' => 'User does not have permission to perform this action'], 403);
+                return response()->json(['error' => 'User does not have permission to perform this action.'], 403);
             }
            
-            return response()->json(['error' => 'Project not found'], 404);
+            return response()->json(['error' => 'Project not found.'], 404);
 
         }
         catch (Exception $ex) {
-            return response()->json(['error' => 'Project not found'], 404);
+            return response()->json(['error' => 'Project not found.'], 404);
         }
     }
 }
