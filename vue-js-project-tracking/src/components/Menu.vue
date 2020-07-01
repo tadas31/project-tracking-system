@@ -1,12 +1,12 @@
 <template>
   <div>
     <ul>
-      <li v-if="loggedIn && email!= ''" class="user-icon"><v-gravatar class="gravatar" v-bind:email="email" /></li>
-      <li v-if="loggedIn && username != ''" class="user-name">{{ username }}</li>
+      <li v-if="isLoggedIn && (getEmail != '' || email != '')" class="user-icon"><v-gravatar class="gravatar" v-bind:email="getEmail || email" /></li>
+      <li v-if="isLoggedIn && (getUsername != '' || username != '')" class="user-name">{{ getUsername || username }}</li>
       <li><router-link to="/"><font-awesome-icon class="icon" icon="home" />Home</router-link></li>
       <li><router-link to="INSERT THIS LATER WHEN PATH EXISTS"><font-awesome-icon class="icon" icon="folder-open" />Public Projects</router-link></li>
-      <li v-if="loggedIn"><router-link to="INSERT THIS LATER WHEN PATH EXISTS"><font-awesome-icon class="icon" icon="folder-open" />My Projects</router-link></li>
-      <li v-if="loggedIn"><router-link to="INSERT THIS LATER WHEN PATH EXISTS"><font-awesome-icon class="icon" icon="folder-open" />Associated Projects</router-link></li>
+      <li v-if="isLoggedIn"><router-link to="INSERT THIS LATER WHEN PATH EXISTS"><font-awesome-icon class="icon" icon="folder-open" />My Projects</router-link></li>
+      <li v-if="isLoggedIn"><router-link to="INSERT THIS LATER WHEN PATH EXISTS"><font-awesome-icon class="icon" icon="folder-open" />Associated Projects</router-link></li>
       <li v-if="!isLoggedIn" class="bottom"><router-link to="/login"><font-awesome-icon class="icon" icon="sign-in-alt" />Log In</router-link></li>
       <li v-if="isLoggedIn" class="bottom"><button @click="logout()" ><font-awesome-icon class="icon" icon="sign-out-alt" />Log Out</button></li>
     </ul>

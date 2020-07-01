@@ -78,9 +78,11 @@ const actions = {
 const mutations = {
   login (state, user) {
     state.access_token = user.access_token
+    state.email = user.email
+    state.username = user.username
     localStorage.setItem('access_token', user.access_token)
     router.push('/')
-    router.go()
+    // router.go()
   },
   error (state, error) {
     if (Array.isArray(error)) {
@@ -95,7 +97,7 @@ const mutations = {
     state.username = null
     localStorage.removeItem('access_token')
     router.push('/login')
-    router.go()
+    // router.go()
   },
   setUserData (state, userData) {
     state.email = userData.email

@@ -10,7 +10,7 @@
           <label for="username">Username</label>
         </div>
         <div class="auth-input-wraper">
-          <input type="email" name="email" id="email" v-model="email" autocomplete="off" placeholder=" " required/>
+          <input type="email" name="email" id="email" v-model="email" :class="{'red-border': email.length < 1}" autocomplete="off" placeholder=" " required/>
           <label for="email">Email</label>
         </div>
         <div class="auth-input-wraper">

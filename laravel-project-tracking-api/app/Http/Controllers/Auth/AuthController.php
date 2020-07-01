@@ -22,7 +22,7 @@ class AuthController extends Controller
             return response()->json(['error' => 'Wrong email or password.'], 401);
         }
 
-        return $this->respondWithToken($token);
+        return $this->respondWithTokenUser($token);
     }
 
     /**
@@ -38,7 +38,7 @@ class AuthController extends Controller
             return response()->json(['error' => 'Wrong email or password.'], 401);
         }
 
-        return $this->respondWithToken($token);
+        return $this->respondWithTokenAdmin($token);
     }
 
     /**
@@ -92,7 +92,7 @@ class AuthController extends Controller
      */
     public function refreshUser()
     {
-        return $this->respondWithToken(auth()->refresh());
+        return $this->respondWithTokenUser(auth()->refresh());
     }
 
     /**
@@ -102,7 +102,7 @@ class AuthController extends Controller
      */
     public function refreshAdmin()
     {
-        return $this->respondWithToken(auth('admin')->refresh());
+        return $this->respondWithTokenAdmin(auth('admin')->refresh());
     }
 
     /**
@@ -112,12 +112,32 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function respondWithToken($token)
+    protected function respondWithTokenUser($token)
     {
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'expires_in' => auth()->factory()->getTTL() * 60,
+            'email' => auth()->user()->email,
+            'username' => auth()->user()->username,
+        ]);
+    }
+
+        /**
+     * Get the token array structure.
+     *
+     * @param  string $token
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function respondWithTokenAdmin($token)
+    {
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => auth()->factory()->getTTL() * 60,
+            'email' => auth()->user()->email,
+            'username' => auth()->user()->name . ' ' . auth()->user()->last_name,
         ]);
     }
 }

@@ -6,6 +6,7 @@
       <li class="search">
         <form>
           <input type="text">
+          <button class="ripple" type="submit"><font-awesome-icon class="icon" icon="search" /></button>
         </form>
       </li>
     </ul>
@@ -96,14 +97,59 @@ li a:hover{
 
 .search {
   display: inline-block;
-  width: 350px;
-  margin-top: -10px;
-  /* height: 35px; */
+  position: absolute;
+  width: 400px;
+  top: calc(50% - 18.5px);
+  left: calc(50% - 202px);
+}
+
+form {
+   background-color: #403D39;
 }
 
 input {
-  width: 100%;
+  outline: none;
+  border: solid 1px #252422;
+  padding: 0 2px;
+  font-size: 15px;
+  width: 85.5%;
   height: 25px;
+  border-radius: 4px 0 0 4px;
+}
+
+input:focus {
+  border: solid 1px #EB5E28;
+}
+
+button.ripple{
+  position: absolute;
+  outline: none;
+  border: none;
+  background-color: #252422;
+  display: inline-block;
+  width: 52px;
+  height: 27px;
+  border-radius: 0 4px 4px 0;
+}
+
+.ripple {
+  background-position: center;
+  transition: background 0.8s;
+}
+
+.ripple:hover {
+  background: #2c2a29 radial-gradient(circle, transparent 1%, #33312f 1%) center/15000%;
+}
+
+.ripple:active {
+  background-color: #33312f;
+  background-size: 100%;
+  transition: background 0s;
+}
+
+.icon {
+  background-color: inherit;
+  color: white;
 }
 
 @keyframes MenuShow {
