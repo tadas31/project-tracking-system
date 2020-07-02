@@ -15,5 +15,7 @@ class Project extends Model
         'is_public',
     ];
 
-
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
 }

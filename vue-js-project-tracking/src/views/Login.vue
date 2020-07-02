@@ -14,7 +14,7 @@
           <label for="password">Password</label>
         </div>
       </div>
-      <div class="error">{{ getError }}</div>
+      <div class="error">{{ getLoginError }}</div>
       <button class="ripple" type="submit">Log In</button>
     </form>
     <router-link to="/signup">Sign Up</router-link>
@@ -33,14 +33,14 @@ export default {
       password: ''
     }
   },
-  computed: mapGetters(['getError']),
+  computed: mapGetters(['getLoginError']),
   created () {
     this.resetError()
   },
   methods: {
     ...mapActions(['login', 'resetError']),
     consoleError () {
-      console.log(this.getError)
+      console.log(this.getLoginError)
     }
   }
 }

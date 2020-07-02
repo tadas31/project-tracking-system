@@ -13,17 +13,19 @@ class ProjectController extends Controller
 {
     /**
      * Displays all projects.
+     * 
+     * TODO: Add search.
      *
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        // Gets all data from db.
-        $project = Project::all();
-        
-        if (sizeof($project) > 0)
-            return ProjectResources::collection($project);
-        else 
-            return response()->json(['error' => 'No projects found.'], 404);
+        // Gets all public projects
+        $projects = Project::all();
+
+        if (sizeof($projects) > 0)
+            return ProjectResources::collection($projects);
+
+        return response()->json(['error' => 'No projects found.'], 404);
     }
 
     /**
@@ -50,6 +52,8 @@ class ProjectController extends Controller
 
     /**
      * Displays specific project.
+     * 
+     * TODO: add all classes.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -68,7 +72,8 @@ class ProjectController extends Controller
     /**
      * Displays all projects that user is part of.
      * 
-     * Add filters for owned and is added to.
+     * TODO: Add filters for owned and is added to.
+     * TODO: Add search.
      */
     public function showAssociatedProjects() {
         $user = auth()->user();
@@ -92,10 +97,23 @@ class ProjectController extends Controller
 
     /**
      * Displays all public projects.
+     * Search public projects.
+     * 
+     * TODO: Add search.
      */
     public function showPublicProjects() {
-        // Gets all public projects
-        $projects = Project::where('is_public', true)->get();
+        $search = request()->input('search');
+
+        if ($search != null) {
+            // Searches for public projects that match search query
+            $projects = Project::where('is_public', true)
+                ->where('name', 'LIKE', '%'.$search.'%')
+                ->get();
+        }
+        else {
+            // Gets all public projects
+            $projects = Project::where('is_public', true)->get();
+        }
 
         if (sizeof($projects) > 0)
             return ProjectResources::collection($projects);

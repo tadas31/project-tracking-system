@@ -4,8 +4,8 @@
       <li class="left"><button @click="meniuOpen = !meniuOpen" ><font-awesome-icon class="hamburger-icon" icon="bars" /></button></li>
       <li class="title"><router-link to="/">Rework</router-link></li>
       <li class="search">
-        <form>
-          <input type="text">
+        <form @submit.prevent="publicProjects(searchQuery)">
+          <input type="text" name="searchQuery" v-model="searchQuery" placeholder="Search public projects">
           <button class="ripple" type="submit"><font-awesome-icon class="icon" icon="search" /></button>
         </form>
       </li>
@@ -16,13 +16,18 @@
 
 <script>
 import Menu from '@/components/Menu.vue'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'Header',
   data: function () {
     return {
-      meniuOpen: true
+      meniuOpen: true,
+      searchQuery: ''
     }
+  },
+  methods: {
+    ...mapActions(['publicProjects'])
   },
   components: {
     Menu

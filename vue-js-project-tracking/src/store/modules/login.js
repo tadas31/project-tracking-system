@@ -4,8 +4,8 @@ import router from '../../router'
 const state = {
   access_token: localStorage.getItem('access_token') || null,
   error: null,
-  email: null,
-  username: null
+  email: '',
+  username: ''
 }
 
 const getters = {
@@ -18,7 +18,7 @@ const getters = {
     }
     return false
   },
-  getError (state) {
+  getLoginError (state) {
     return state.error
   },
   getUsername (state) {
@@ -82,7 +82,6 @@ const mutations = {
     state.username = user.username
     localStorage.setItem('access_token', user.access_token)
     router.push('/')
-    // router.go()
   },
   error (state, error) {
     if (Array.isArray(error)) {
@@ -97,7 +96,6 @@ const mutations = {
     state.username = null
     localStorage.removeItem('access_token')
     router.push('/login')
-    // router.go()
   },
   setUserData (state, userData) {
     state.email = userData.email
