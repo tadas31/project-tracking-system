@@ -45,6 +45,7 @@ body {
   text-align: center;
   font-size: 40px;
   font-weight: bold;
+  padding-bottom: 20px;
 }
 
 .loader {

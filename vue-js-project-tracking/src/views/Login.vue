@@ -76,8 +76,7 @@ input:focus {
 }
 
 .input-container {
-  padding: 10px 10px;
-  margin-top: 20px;
+  padding: 10px;
 }
 
 .auth-input-wraper {
@@ -95,7 +94,7 @@ label {
 }
 
 input:focus + label,
-input:valid + label,
+input:not(:placeholder-shown):valid + label,
 input:not(:placeholder-shown):invalid + label {
   font-size: 14px;
   top: 12px;
@@ -135,7 +134,8 @@ button {
   color: red;
   padding: 0 30px;
   margin-top: -10px;
-  margin-bottom: 20px;;
+  margin-bottom: 20px;
+  height: 18px;
 }
 
 a {

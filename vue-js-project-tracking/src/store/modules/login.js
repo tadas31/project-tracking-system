@@ -92,10 +92,11 @@ const mutations = {
   },
   logout (state) {
     state.access_token = null
-    state.email = null
-    state.username = null
+    state.email = ''
+    state.username = ''
     localStorage.removeItem('access_token')
     router.push('/login')
+    router.go()
   },
   setUserData (state, userData) {
     state.email = userData.email

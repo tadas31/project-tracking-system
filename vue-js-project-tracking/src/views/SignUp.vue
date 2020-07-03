@@ -22,7 +22,7 @@
           <label for="confirmPassword">Confirm Password</label>
         </div>
       </div>
-      <div class="error">{{ getError }}</div>
+      <div class="error">{{ getLoginError }}</div>
       <button class="ripple" type="submit">Sign Up</button>
     </form>
     <router-link to="/login">Log In</router-link>
@@ -43,7 +43,7 @@ export default {
       error: ''
     }
   },
-  computed: mapGetters(['getError']),
+  computed: mapGetters(['getLoginError']),
   created () {
     this.resetError()
   },
@@ -63,7 +63,7 @@ export default {
 
 .signup-container {
   width: 400px;
-  height: 540px;
+  height: 560px;
   padding: 10px;
   box-shadow: 0 0 10px 5px #CCC5B9;
   margin-left: -210px;
@@ -105,7 +105,7 @@ label {
 }
 
 input:focus + label,
-input:valid + label,
+input:not(:placeholder-shown):valid + label,
 input:not(:placeholder-shown):invalid + label {
   font-size: 14px;
   top: 12px;
@@ -145,7 +145,8 @@ button {
   color: red;
   padding: 0 30px;
   margin-top: -10px;
-  margin-bottom: 20px
+  margin-bottom: 20px;
+  height: 18px;
 }
 
 a{

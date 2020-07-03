@@ -1,18 +1,18 @@
 <template>
   <div class="projects-container">
-      <table v-if="getPublicProjects != null && getProjectError == null">
+      <table v-if="projects != null && getProjectError == null">
         <tr>
           <th>Name</th>
           <th>Author</th>
           <th>Git repository</th>
         </tr>
-        <tr class="table-body" v-for="publicProject in getPublicProjects.data"  v-bind:key="publicProject.id" @click="consoleLog(publicProject.id)">
-          <td class="truncate">{{ publicProject.name }}</td>
-          <td class="truncate">{{ publicProject.username }}</td>
-          <td class="truncate"><a :href="publicProject.git_repository" target="_blank">{{ publicProject.git_repository }}</a></td>
+        <tr class="table-body" v-for="project in projects.data"  v-bind:key="project.id" @click="openProject(project.id)">
+          <td class="truncate">{{ project.name }}</td>
+          <td class="truncate">{{ project.username }}</td>
+          <td class="truncate"><a :href="project.git_repository" target="_blank">{{ project.git_repository }}</a></td>
         </tr>
       </table>
-      <div class="loader loader-center" v-if="getPublicProjects == null && getProjectError == null"></div>
+      <div class="loader loader-center" v-if="projects == null && getProjectError == null"></div>
       <div class="error" v-if="getProjectError != null">
         {{ getProjectError }}
       </div>
@@ -20,19 +20,14 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'ProjectsTable',
-  mounted () {
-    if (this.getPublicProjects == null) {
-      this.publicProjects()
-    }
-  },
-  computed: mapGetters(['getPublicProjects', 'getProjectError']),
+  props: ['projects'],
+  computed: mapGetters(['getProjectError']),
   methods: {
-    ...mapActions(['publicProjects']),
-    consoleLog (key) {
+    openProject (key) {
       this.$router.push('/project/' + key)
     }
   }
@@ -53,7 +48,6 @@ table {
 }
 
 td, th {
-  /* border: 1px solid #dddddd; */
   text-align: left;
   padding: 8px;
   width: 33.33%;

@@ -45,9 +45,9 @@ class ProjectController extends Controller
         $request['user_id'] = auth()->user()->id;
 
         // Creates new project.
-        Project::create($request->all());
+        $project = Project::create($request->all());
 
-        return response()->json(['message' => 'Project created.'], 200);
+        return response()->json(['message' => 'Project created.', 'id' => $project->id], 200);
     }
 
     /**
@@ -99,7 +99,6 @@ class ProjectController extends Controller
      * Displays all public projects.
      * Search public projects.
      * 
-     * TODO: Add search.
      */
     public function showPublicProjects() {
         $search = request()->input('search');
@@ -108,15 +107,20 @@ class ProjectController extends Controller
             // Searches for public projects that match search query
             $projects = Project::where('is_public', true)
                 ->where('name', 'LIKE', '%'.$search.'%')
-                ->get();
+                ->paginate(15)
+                ->appends(['search' => $search]);
         }
         else {
             // Gets all public projects
-            $projects = Project::where('is_public', true)->get();
+            $projects = Project::where('is_public', true)
+                ->paginate(15);
         }
 
-        if (sizeof($projects) > 0)
+
+        if (sizeof($projects) > 0) {
             return ProjectResources::collection($projects);
+        }
+           
 
         return response()->json(['error' => 'No projects found.'], 404);
     }
@@ -203,7 +207,8 @@ class ProjectController extends Controller
     public function validator($request) {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'is_public' => 'numeric|max:1|min:0'
+            'is_public' => 'boolean',
+            'git_repository' => 'url'
         ]);
 
         return $validator;
